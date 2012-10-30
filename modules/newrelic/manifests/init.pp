@@ -14,14 +14,4 @@ class newrelic {
 	    require => Apt::Source['newrelic']
 	}
 
-	package { 'newrelic-php5':	
-	  ensure => installed,
-	  require => Exec['updateapt-newrelic']
-	}
-
-	exec { 'install-newrelic': 
-	    command => 'install-newrelic install',
-	    require => Package['newrelic-php5']
-	}
-
 }
