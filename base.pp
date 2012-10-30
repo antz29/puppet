@@ -21,6 +21,11 @@ class { 'phpfpm':
   require => Exec['apt-get dist-upgrade'] 
 }
 
+/* Install Newrelic */
+class { 'newrelic': 
+  require => Exec['apt-get dist-upgrade'] 
+}
+
 /* Install MongoDB */
 class { 'mongodb': 
   require => Exec['apt-get dist-upgrade'] 
