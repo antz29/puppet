@@ -7,11 +7,6 @@ class newrelic {
 	  key           => "548C16BF",
 	  key_server    => 'download.newrelic.com',
 	  include_src 	=> false 
-	}  
-
-	exec { 'updateapt-newrelic': 
-	    command => '/usr/bin/apt-get update',
-	    require => Apt::Source['newrelic']
-	}
+	} 
 
 }
