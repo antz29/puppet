@@ -33,7 +33,7 @@ class newrelic {
 
 	file { "/etc/newrelic/nrsysmond.cfg": 
 	  ensure      	=> present,
-	  source      => "puppet:///modules/nginx/nrsysmond.cfg",
+	  source      => "puppet:///modules/newrelic/nrsysmond.cfg",
 	  group       	=> 'root',
 	  mode        	=> '0644'
 	}
