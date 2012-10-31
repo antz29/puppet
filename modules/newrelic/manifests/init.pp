@@ -28,26 +28,28 @@ class newrelic {
 	  ensure      	=> present,
 	  source      => "puppet:///modules/newrelic/newrelic.cfg",
 	  group       	=> 'root',
-	  mode        	=> '0644'
+	  mode        	=> '0644',
+	  require => Package['newrelic-sysmond','newrelic-php5']
 	}
 
 	file { "/etc/newrelic/nrsysmond.cfg": 
 	  ensure      	=> present,
 	  source      => "puppet:///modules/newrelic/nrsysmond.cfg",
 	  group       	=> 'root',
-	  mode        	=> '0644'
+	  mode        	=> '0644',
+	  require => Package['newrelic-sysmond','newrelic-php5']
 	}
 
 	service { 'newrelic-sysmond':
 	    ensure => running,
 	    subscribe  => File['/etc/newrelic/nrsysmond.cfg'],
-	    require => Package['newrelic-sysmond'],
+	    require => Package['newrelic-sysmond']
 	}
 
 	service { 'newrelic-daemon':
 	    ensure => running,
 	    subscribe  => File['/etc/newrelic/newrelic.cfg'],
-	    require => Package['newrelic-php5'],
+	    require => Package['newrelic-php5']
 	}
 
 }
