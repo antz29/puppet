@@ -25,23 +25,29 @@ class newrelic {
 	}
 
 	file { "/etc/newrelic/newrelic.cfg": 
-	  ensure      => present,
-	  source      => "/etc/newrelic/newrelic.cfg.template",
-	  group       => 'root',
-	  mode        => '0644',
-	  require => Package['newrelic-php5']
+	  ensure      	=> present,
+	  source      => "puppet:///modules/newrelic/newrelic.cfg",
+	  group       	=> 'root',
+	  mode        	=> '0644'
+	}
+
+	file { "/etc/newrelic/nrsysmond.cfg": 
+	  ensure      	=> present,
+	  source      => "puppet:///modules/nginx/nrsysmond.cfg",
+	  group       	=> 'root',
+	  mode        	=> '0644'
 	}
 
 	service { 'newrelic-sysmond':
 	    ensure => running,
-	    subscribe  => File['/etc/php5/fpm/pool.d/www.conf'],
-	    require => Package['php5-fpm'],
+	    subscribe  => File['/etc/newrelic/nrsysmond.cfg'],
+	    require => Package['newrelic-sysmond'],
 	}
 
-	service { 'newrelic-sysmond':
+	service { 'newrelic-daemon':
 	    ensure => running,
-	    subscribe  => File['/etc/php5/fpm/pool.d/www.conf'],
-	    require => Package['php5-fpm'],
+	    subscribe  => File['/etc/newrelic/newrelic.cfg'],
+	    require => Package['newrelic-php5'],
 	}
 
 }
