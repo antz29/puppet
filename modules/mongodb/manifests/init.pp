@@ -9,13 +9,15 @@ class mongodb {
 	  include_src => false,
 	}
 
+	/*
 	exec { 'updateapt': 
 	    command => '/usr/bin/apt-get update',
 	    require => Apt::Source['10gen']
 	}
+	*/
 
 	package { 'mongodb-10gen':
-	  require => Exec['updateapt'],
+	  require => Apt::Source['10gen'],
 	  ensure => installed,
 	  before => File["/etc/mongodb.conf"]
 	}

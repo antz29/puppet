@@ -1,6 +1,7 @@
-include apt
-
 /* Setup Sources */
+class { 'apt':
+	always_apt_update => true
+}
 
 /* Install Nginx */
 class { 'nginx':
@@ -8,6 +9,10 @@ class { 'nginx':
 
 /* Install PHP */
 class { 'phpfpm': 
+}
+
+/* Install Varnish */
+class { 'varnish': 
 }
 
 /* Install MongoDB */
